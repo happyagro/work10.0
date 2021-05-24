@@ -19,8 +19,8 @@ public class AfishaManagerTest {
     private Movie tenth = new Movie(10, 10, "movie10", "genre10", "image10");
 
     @Test
-    public void shouldAddAllMovies() {
-        manager = new AfishaManager(10);
+    public void showsDefaultMoviesCount() {
+        manager = new AfishaManager();
         manager.add(first);
         manager.add(second);
         manager.add(third);
@@ -33,6 +33,68 @@ public class AfishaManagerTest {
         manager.add(tenth);
         Movie[] actual = manager.showLast();
         Movie[] expected = new Movie[]{tenth, ninth, eight, seventh, sixth, fifth, fourth, third, second, first};
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void showsFiveAddedMovies() {
+        manager = new AfishaManager(5);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+
+        Movie[] actual = manager.showLast();
+        Movie[] expected = new Movie[]{fifth, fourth, third, second, first};
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void showsThreeMoviesWithFiveAdded() {
+        manager = new AfishaManager(3);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+
+        Movie[] actual = manager.showLast();
+        Movie[] expected = new Movie[]{fifth, fourth, third};
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void showsReversedMoviesSequence() {
+        manager = new AfishaManager();
+        manager.add(second);
+        manager.add(first);
+        manager.add(fifth);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(sixth);
+        manager.add(seventh);
+        manager.add(ninth);
+        manager.add(tenth);
+        manager.add(eight);
+        Movie[] actual = manager.showLast();
+        Movie[] expected = new Movie[]{eight, tenth, ninth, seventh, sixth, fourth, third, fifth, first, second};
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void showsAllWhenNotEnough(){
+        manager = new AfishaManager();
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+
+        Movie[] actual = manager.showLast();
+        Movie[] expected = new Movie[]{third, second, first};
 
         assertArrayEquals(expected, actual);
     }
